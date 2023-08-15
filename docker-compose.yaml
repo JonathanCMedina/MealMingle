@@ -1,8 +1,12 @@
-# volumes:
+volumes:
+  meal_mingle:
+
 services:
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
+      DATABASE_URL: postgresql://admin:password@database/meal_mingle
+      PORT: 8000
     build:
       context: api
       dockerfile: Dockerfile.dev
@@ -10,6 +14,16 @@ services:
       - 8000:8000
     volumes:
       - ./api:/app
+  database:
+    image: postgres:14.5-bullseye
+    volumes:
+      - meal_mingle:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: admin
+      POSTGRES_DB: meal_mingle
+    ports:
+      - "15432:5432"
 
   ghi:
     image: node:lts-bullseye
@@ -24,4 +38,4 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+      REACT_APP_API_HOST: http://localhost:8000
