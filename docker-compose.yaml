@@ -1,11 +1,11 @@
 volumes:
-  meal-mingle:
+  meal_mingle:
     external: true
 services:
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
-      DATABASE_URL: postgresql://admin:password@postgres/meal-mingle
+      DATABASE_URL: postgresql://admin:password@postgres/meal_mingle
       PORT: 8000
     build:
       context: api
@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: admin
-      POSTGRES_DB: meal-mingle
+      POSTGRES_DB: meal_mingle
     ports:
       - "15432:5432"
   ghi:
@@ -38,4 +38,3 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_API_HOST: ${REACT_APP_API_HOST}
- 
