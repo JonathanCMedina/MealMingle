@@ -6,7 +6,7 @@ services:
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
-      DATABASE_URL: postgresql://admin:password@database/meal_mingle
+      DATABASE_URL: postgresql://admin:password@postgresql/meal_mingle
       PORT: 8000
     build:
       context: api
@@ -15,7 +15,7 @@ services:
       - 8000:8000
     volumes:
       - ./api:/app
-  database:
+  postgresql:
     image: postgres:14.5-bullseye
     volumes:
       - meal_mingle:/var/lib/postgresql/data
@@ -24,7 +24,7 @@ services:
       POSTGRES_USER: admin
       POSTGRES_DB: meal_mingle
     ports:
-      - "15432:5432"
+      - 15432:5432
 
   ghi:
     image: node:lts-bullseye
