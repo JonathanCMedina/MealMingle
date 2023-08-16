@@ -3,12 +3,13 @@ from datetime import date
 from typing import Optional
 
 class EventIn(BaseModel):
-    name: str
-    location: str
+    event_name: str
+    address: str
+    zip_code: int
     description: str
-    date: date
-    food_types: str
-    private: Optional[bool] = False
+    event_date: date
+    food_types: int
+    private_event: Optional[bool] = False
     alcohol_free: Optional[bool] = False
     vegan: Optional[bool] = False
     vegetarian: Optional[bool] = False
