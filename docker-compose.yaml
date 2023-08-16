@@ -1,7 +1,6 @@
 volumes:
   meal-mingle:
     external: true
-
 services:
   fastapi:
     environment:
@@ -39,3 +38,4 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+ 
