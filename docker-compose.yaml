@@ -2,6 +2,16 @@ volumes:
   meal_mingle:
     external: true
 services:
+  postgres:
+    image: postgres:14.5-bullseye
+    volumes:
+      - meal_mingle:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: admin
+      POSTGRES_DB: meal_mingle
+    ports:
+      - 15432:5432
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
@@ -14,17 +24,6 @@ services:
       - 8000:8000
     volumes:
       - ./api:/app
-  postgres:
-    image: postgres:14.5-bullseye
-    volumes:
-      - meal_mingle:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: admin
-      POSTGRES_DB: meal_mingle
-    ports:
-      - 15432:5432
-
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh

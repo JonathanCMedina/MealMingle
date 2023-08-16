@@ -1,5 +1,5 @@
 # Module3 Project Gamma
-Mitchell
+
 ## Getting started
 
 You have a project repository, now what? The next section
