@@ -16,3 +16,8 @@ def signup(user_data: UserCreate):
     users.append(new_user)
 
     return {"message": "User registered successfully"}
+
+
+@router.post("/login")
+def user_login(user: UserLogin):
+    return user

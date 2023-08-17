@@ -7,3 +7,8 @@ class UserCreate(BaseModel):
     email: str
     password: str
     password_confirmation: str
+
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
