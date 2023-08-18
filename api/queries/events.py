@@ -1,7 +1,12 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import Optional
+from typing import Optional, List, Union
 from queries.pool import pool
+
+
+class Error(BaseModel):
+    message: str
+
 
 class EventIn(BaseModel):
     event_name: str
@@ -21,6 +26,7 @@ class EventIn(BaseModel):
     dairy_free: Optional[bool] = False
     halal: Optional[bool] = False
     kosher: Optional[bool] = False
+
 
 class EventOut(BaseModel):
     event_id: int
@@ -44,8 +50,31 @@ class EventOut(BaseModel):
     kosher: Optional[bool] = False
 
 
-
 class EventRepository:
+    def get_all_public_events(self) -> Union[List[EventOut], Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT
+                            event_id
+                            , event_name
+                            , address
+                            , zipcode
+                            , description
+                            , event_date
+                        FROM events
+                        ORDER BY event_date;
+                        """
+                    )
+                    return [
+                        self.record_to_event_out(record) for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Good work, slay!"}
+
     def create(self, event: EventIn) -> EventOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
@@ -74,9 +103,19 @@ class EventRepository:
                         event.keto_friendly,
                         event.dairy_free,
                         event.halal,
-                        event.kosher
-                    ]
+                        event.kosher,
+                    ],
                 )
                 event_id = result.fetchone()[0]
                 old_data = event.dict()
                 return EventOut(event_id=event_id, **old_data)
+
+    def record_to_event_out(self, record):
+        return EventOut(
+            event_id=record[0],
+            event_name=record[1],
+            address=record[2],
+            zipcode=record[3],
+            description=record[4],
+            event_date=record[5],
+        )
