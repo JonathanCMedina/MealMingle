@@ -1,14 +1,4 @@
-from pydantic import BaseModel
+import os
+from psycopg_pool import ConnectionPool
 
-
-class UserCreate(BaseModel):
-    full_name: str
-    username: str
-    email: str
-    password: str
-    password_confirmation: str
-
-
-class UserLogin(BaseModel):
-    username: str
-    password: str
+pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
