@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from queries.accounts import UserCreate
+from queries.accounts import UserCreate, UserLogin
 
 router = APIRouter()
 
