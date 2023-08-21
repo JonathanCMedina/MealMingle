@@ -6,7 +6,7 @@ from queries.events import Error, EventIn, EventOut, EventRepository
 router = APIRouter()
 
 
-@router.post("/event")
+@router.post("/event", response_model=EventOut)
 def create_an_event(event: EventIn, repo: EventRepository = Depends()):
     return repo.create(event)
 
@@ -37,3 +37,10 @@ def edit_event(
     repo: EventRepository = Depends(),
 ) -> Union[Error, EventOut]:
     return repo.update(event_id, event)
+
+@router.delete("/events/{event_id}", response_model=bool)
+def delete_event(
+    event_id: int,
+    repo: EventRepository = Depends(),
+) -> EventOut:
+    return repo.delete(event_id)
