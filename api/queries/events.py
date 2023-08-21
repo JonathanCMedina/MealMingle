@@ -11,7 +11,7 @@ class Error(BaseModel):
 class EventIn(BaseModel):
     event_name: str
     address: str
-    zip_code: int
+    zipcode: int
     description: str
     event_date: date
     private_event: Optional[bool] = False
@@ -33,7 +33,7 @@ class EventOut(BaseModel):
     # host_id: int
     event_name: str
     address: str
-    zip_code: int
+    zipcode: int
     description: str
     event_date: date
     private_event: Optional[bool] = False
@@ -89,7 +89,7 @@ class EventRepository:
                     [
                         event.event_name,
                         event.address,
-                        event.zip_code,
+                        event.zipcode,
                         event.description,
                         event.event_date,
                         event.private_event,
@@ -119,3 +119,59 @@ class EventRepository:
             description=record[4],
             event_date=record[5],
         )
+    
+    def update(self, event_id: int, event: EventIn) -> Union[EventOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE events
+                        SET
+                        event_name = %s,
+                        address = %s,
+                        zipcode = %s, 
+                        description = %s, 
+                        event_date = %s, 
+                        private_event = %s, 
+                        alcohol_free = %s, 
+                        vegan = %s, 
+                        gluten_free = %s, 
+                        pescatarian = %s, 
+                        vegetarian = %s, 
+                        omnivore = %s, 
+                        keto_friendly = %s, 
+                        dairy_free = %s, 
+                        halal = %s, 
+                        kosher = %s
+                        WHERE event_id = %s
+                        """,
+                        [
+                            event.event_name,
+                            event.address,
+                            event.zipcode,
+                            event.description,
+                            event.event_date,
+                            event.private_event,
+                            # event.food_types,
+                            event.alcohol_free,
+                            event.vegan,
+                            event.gluten_free,
+                            event.pescatarian,
+                            event.vegetarian,
+                            event.omnivore,
+                            event.keto_friendly,
+                            event.dairy_free,
+                            event.halal,
+                            event.kosher,
+                            event_id,
+                        ]
+                    )
+                    return self.event_in_to_out(event_id, event)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update the event"}
+
+    def event_in_to_out(self, event_id: int, event: EventIn):
+        old_data = event.dict()
+        return EventOut(event_id=event_id, **old_data)

@@ -16,3 +16,12 @@ def get_all_public_events(
     repo: EventRepository = Depends(),
 ):
     return repo.get_all_public_events()
+
+
+@router.put("/events/{event_id}/edit", response_model=Union[EventOut, Error])
+def edit_event(
+    event_id: int,
+    event: EventIn,
+    repo: EventRepository = Depends(),
+) -> Union[Error, EventOut]:
+    return repo.update(event_id, event)
