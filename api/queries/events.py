@@ -11,7 +11,7 @@ class Error(BaseModel):
 class EventIn(BaseModel):
     event_name: str
     address: str
-    zip_code: int
+    zipcode: int
     description: str
     event_date: date
     private_event: Optional[bool] = False
@@ -33,7 +33,7 @@ class EventOut(BaseModel):
     # host_id: int
     event_name: str
     address: str
-    zip_code: int
+    zipcode: int
     description: str
     event_date: date
     private_event: Optional[bool] = False
@@ -89,7 +89,7 @@ class EventRepository:
                     [
                         event.event_name,
                         event.address,
-                        event.zip_code,
+                        event.zipcode,
                         event.description,
                         event.event_date,
                         event.private_event,
