@@ -7,13 +7,14 @@ steps = [
             full_name VARCHAR(256) NOT NULL,
             username VARCHAR NOT NULL UNIQUE,
             email VARCHAR NOT NULL UNIQUE,
+            password VARCHAR NOT NULL UNIQUE,
             host_status BOOLEAN NOT NULL
         );
         """,
         # "Down" SQL statement
         """
         DROP TABLE users;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -26,7 +27,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE food_types;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -56,7 +57,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE events;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -69,6 +70,6 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE food_types;
-        """
+        """,
     ],
 ]

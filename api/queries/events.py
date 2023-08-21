@@ -116,7 +116,7 @@ class EventRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                            SELECT event_id, event_name, address, zipcode, description, event_date, private_event, alcohol_free, vegan, gluten_free, pescatarian, vegetarian, omnivore, keto_friendly, dairy_free, halal, kosher)
+                            SELECT event_id, event_name, address, zipcode, description, event_date, private_event, alcohol_free, vegan, gluten_free, pescatarian, vegetarian, omnivore, keto_friendly, dairy_free, halal, kosher
                             FROM events
                             WHERE event_id = %s
                         """,
@@ -141,7 +141,7 @@ class EventRepository:
             description=record[4],
             event_date=record[5],
         )
-    
+
     def update(self, event_id: int, event: EventIn) -> Union[EventOut, Error]:
         try:
             with pool.connection() as conn:
@@ -152,19 +152,19 @@ class EventRepository:
                         SET
                         event_name = %s,
                         address = %s,
-                        zipcode = %s, 
-                        description = %s, 
-                        event_date = %s, 
-                        private_event = %s, 
-                        alcohol_free = %s, 
-                        vegan = %s, 
-                        gluten_free = %s, 
-                        pescatarian = %s, 
-                        vegetarian = %s, 
-                        omnivore = %s, 
-                        keto_friendly = %s, 
-                        dairy_free = %s, 
-                        halal = %s, 
+                        zipcode = %s,
+                        description = %s,
+                        event_date = %s,
+                        private_event = %s,
+                        alcohol_free = %s,
+                        vegan = %s,
+                        gluten_free = %s,
+                        pescatarian = %s,
+                        vegetarian = %s,
+                        omnivore = %s,
+                        keto_friendly = %s,
+                        dairy_free = %s,
+                        halal = %s,
                         kosher = %s
                         WHERE event_id = %s
                         """,
@@ -187,7 +187,7 @@ class EventRepository:
                             event.halal,
                             event.kosher,
                             event_id,
-                        ]
+                        ],
                     )
                     return self.event_in_to_out(event_id, event)
         except Exception as e:
