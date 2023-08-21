@@ -73,7 +73,7 @@ class EventRepository:
                     ]
         except Exception as e:
             print(e)
-            return {"message": "Good work, slay!"}
+            return {"message": "Could not get all public events"}
 
     def create(self, event: EventIn) -> EventOut:
         with pool.connection() as conn:
@@ -110,15 +110,28 @@ class EventRepository:
                 old_data = event.dict()
                 return EventOut(event_id=event_id, **old_data)
 
-    def record_to_event_out(self, record):
-        return EventOut(
-            event_id=record[0],
-            event_name=record[1],
-            address=record[2],
-            zipcode=record[3],
-            description=record[4],
-            event_date=record[5],
-        )
+    def get_one_event(self, event_id: int) -> Optional[EventOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                            SELECT event_id, event_name, address, zipcode, description, event_date, private_event, alcohol_free, vegan, gluten_free, pescatarian, vegetarian, omnivore, keto_friendly, dairy_free, halal, kosher
+                            FROM events
+                            WHERE event_id = %s
+                        """,
+                        [event_id],
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_event_out(record)
+        except Exception as e:
+            print(e)
+            return {
+                "message": "Could not get that event with that event id, please try again"
+            }
+
 
     def delete(self, event_id : int) -> bool:
         try:
@@ -134,3 +147,69 @@ class EventRepository:
                     return True
         except Exception as e:
             return False
+
+    def update(self, event_id: int, event: EventIn) -> Union[EventOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE events
+                        SET
+                        event_name = %s,
+                        address = %s,
+                        zipcode = %s,
+                        description = %s,
+                        event_date = %s,
+                        private_event = %s,
+                        alcohol_free = %s,
+                        vegan = %s,
+                        gluten_free = %s,
+                        pescatarian = %s,
+                        vegetarian = %s,
+                        omnivore = %s,
+                        keto_friendly = %s,
+                        dairy_free = %s,
+                        halal = %s,
+                        kosher = %s
+                        WHERE event_id = %s
+                        """,
+                        [
+                            event.event_name,
+                            event.address,
+                            event.zipcode,
+                            event.description,
+                            event.event_date,
+                            event.private_event,
+                            # event.food_types,
+                            event.alcohol_free,
+                            event.vegan,
+                            event.gluten_free,
+                            event.pescatarian,
+                            event.vegetarian,
+                            event.omnivore,
+                            event.keto_friendly,
+                            event.dairy_free,
+                            event.halal,
+                            event.kosher,
+                            event_id,
+                        ]
+                    )
+                    return self.event_in_to_out(event_id, event)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update the event"}
+
+    def event_in_to_out(self, event_id: int, event: EventIn):
+        old_data = event.dict()
+        return EventOut(event_id=event_id, **old_data)
+
+    def record_to_event_out(self, record):
+        return EventOut(
+            event_id=record[0],
+            event_name=record[1],
+            address=record[2],
+            zipcode=record[3],
+            description=record[4],
+            event_date=record[5],
+        )
