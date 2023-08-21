@@ -28,3 +28,12 @@ def get_one_event(
     if event is None:
         response.status_code = 404
     return event
+
+
+@router.put("/events/{event_id}/edit", response_model=Union[EventOut, Error])
+def edit_event(
+    event_id: int,
+    event: EventIn,
+    repo: EventRepository = Depends(),
+) -> Union[Error, EventOut]:
+    return repo.update(event_id, event)
