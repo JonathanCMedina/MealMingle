@@ -11,7 +11,7 @@ class Error(BaseModel):
 class EventIn(BaseModel):
     event_name: str
     address: str
-    zip_code: int
+    zipcode: int
     description: str
     event_date: date
     private_event: Optional[bool] = False
@@ -33,7 +33,7 @@ class EventOut(BaseModel):
     # host_id: int
     event_name: str
     address: str
-    zip_code: int
+    zipcode: int
     description: str
     event_date: date
     private_event: Optional[bool] = False
@@ -64,8 +64,8 @@ class EventRepository:
                             , zipcode
                             , description
                             , event_date
-                        FROM events
-                        ORDER BY event_date;
+                            FROM events
+                            ORDER BY event_date;
                         """
                     )
                     return [
@@ -89,7 +89,7 @@ class EventRepository:
                     [
                         event.event_name,
                         event.address,
-                        event.zip_code,
+                        event.zipcode,
                         event.description,
                         event.event_date,
                         event.private_event,
@@ -119,3 +119,18 @@ class EventRepository:
             description=record[4],
             event_date=record[5],
         )
+
+    def delete(self, event_id : int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM events
+                        WHERE event_id = %s
+                        """,
+                        [event_id]
+                    )
+                    return True
+        except Exception as e:
+            return False
