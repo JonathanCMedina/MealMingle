@@ -73,7 +73,7 @@ class EventRepository:
                     ]
         except Exception as e:
             print(e)
-            return {"message": "Good work, slay!"}
+            return {"message": "Could not get all public events"}
 
     def create(self, event: EventIn) -> EventOut:
         with pool.connection() as conn:
@@ -109,6 +109,28 @@ class EventRepository:
                 event_id = result.fetchone()[0]
                 old_data = event.dict()
                 return EventOut(event_id=event_id, **old_data)
+
+    def get_one_event(self, event_id: int) -> Optional[EventOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                            SELECT event_id, event_name, address, zipcode, description, event_date, private_event, alcohol_free, vegan, gluten_free, pescatarian, vegetarian, omnivore, keto_friendly, dairy_free, halal, kosher)
+                            FROM events
+                            WHERE event_id = %s
+                        """,
+                        [event_id],
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_event_out(record)
+        except Exception as e:
+            print(e)
+            return {
+                "message": "Could not get that event with that event id, please try again"
+            }
 
     def record_to_event_out(self, record):
         return EventOut(
