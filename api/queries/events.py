@@ -30,7 +30,7 @@ class EventIn(BaseModel):
 
 class EventOut(BaseModel):
     event_id: int
-    # host_id: int
+    host_id: int
     event_name: str
     address: str
     zipcode: int
@@ -85,6 +85,13 @@ class EventRepository:
                     VALUES
                         (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                     RETURNING event_id;
+                    """
+
+                    """
+                    SELECT user_id
+                    FROM users
+                    INNER JOIN events
+                    ON user_id=host_id
                     """,
                     [
                         event.event_name,
@@ -107,8 +114,9 @@ class EventRepository:
                     ],
                 )
                 event_id = result.fetchone()[0]
+                host_id = result.fetcheone()[1]
                 old_data = event.dict()
-                return EventOut(event_id=event_id, **old_data)
+                return EventOut(event_id=event_id, host_id=host_id, **old_data)
 
     def get_one_event(self, event_id: int) -> Optional[EventOut]:
         try:
