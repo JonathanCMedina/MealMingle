@@ -7,7 +7,8 @@ steps = [
             full_name VARCHAR(256) NOT NULL,
             username VARCHAR NOT NULL UNIQUE,
             email VARCHAR NOT NULL UNIQUE,
-            host_status BOOLEAN NOT NULL
+            password VARCHAR NOT NULL,
+            host_status BOOLEAN
         );
         """,
         # "Down" SQL statement

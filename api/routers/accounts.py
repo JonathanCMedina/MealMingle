@@ -1,23 +1,23 @@
-from fastapi import APIRouter, HTTPException
-from queries.accounts import UserCreate, UserLogin
+from fastapi import APIRouter, HTTPException, Depends
+from queries.accounts import AccountsRepository, UserIn, UserOut
 
 router = APIRouter()
 
 users = []
 
 
-@router.post("/signup")
-def signup(user_data: UserCreate):
+@router.post("/signup", response_model=UserOut)
+def signup(user_data: UserIn, repo: AccountsRepository = Depends()):
     # Password check - you should handle this securely
     if user_data.password != user_data.password_confirmation:
         raise HTTPException(status_code=400, detail="Passwords do not match")
 
-    new_user = user_data.dict()
-    users.append(new_user)
+    # new_user = user_data.dict()
+    # users.append(new_user)
+    return repo.create_account(user_data)
+    # return {"message": "User registered successfully"}
 
-    return {"message": "User registered successfully"}
 
-
-@router.post("/login")
-def user_login(user: UserLogin):
-    return user
+# @router.post("/login")
+# def user_login(user: UserLogin):
+#     return user
