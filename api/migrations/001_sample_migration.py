@@ -7,7 +7,7 @@ steps = [
             full_name VARCHAR(256) NOT NULL,
             username VARCHAR NOT NULL UNIQUE,
             email VARCHAR NOT NULL UNIQUE,
-            password VARCHAR NOT NULL,
+            hashed_password VARCHAR NOT NULL,
             host_status BOOLEAN
         );
         """,
