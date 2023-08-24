@@ -19,15 +19,19 @@ from queries.accounts import (
     DuplicateAccountError,
 )
 
+
 class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: UserOut
 
+
 class HttpError(BaseModel):
     detail: str
+
 
 router = APIRouter()
 
