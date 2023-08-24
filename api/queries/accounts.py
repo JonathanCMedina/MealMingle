@@ -10,17 +10,21 @@ class UserIn(BaseModel):
     password: str
     password_confirmation: str
 
+
 class UserOut(BaseModel):
     user_id: int
     full_name: str
     username: str
     email: str
 
+
 class UserOutWithPassword(UserOut):
     hashed_password: str
 
+
 class DuplicateAccountError(ValueError):
     pass
+
 
 class AccountsRepository(BaseModel):
     def create_account(self, users: UserIn, hashed_password: str) -> UserOut:
@@ -48,7 +52,7 @@ class AccountsRepository(BaseModel):
                     username=users.username,
                     email=users.email,
                     hashed_password=hashed_password,
-                    )
+                )
 
     def get_account(self, email: str) -> UserOut:
         try:
@@ -74,6 +78,4 @@ class AccountsRepository(BaseModel):
                     )
         except Exception as e:
             print(e)
-            return {
-                "message": "Account not found"
-            }
+            return {"message": "Account not found"}

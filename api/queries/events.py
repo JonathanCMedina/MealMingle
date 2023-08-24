@@ -86,7 +86,6 @@ class EventRepository:
                         (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                     RETURNING event_id;
                     """
-
                     """
                     SELECT user_id
                     FROM users
@@ -140,8 +139,7 @@ class EventRepository:
                 "message": "Could not get that event with that event id, please try again"
             }
 
-
-    def delete(self, event_id : int) -> bool:
+    def delete(self, event_id: int) -> bool:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -150,10 +148,11 @@ class EventRepository:
                         DELETE FROM events
                         WHERE event_id = %s
                         """,
-                        [event_id]
+                        [event_id],
                     )
                     return True
         except Exception as e:
+            print(e)
             return False
 
     def update(self, event_id: int, event: EventIn) -> Union[EventOut, Error]:
@@ -201,7 +200,7 @@ class EventRepository:
                             event.halal,
                             event.kosher,
                             event_id,
-                        ]
+                        ],
                     )
                     return self.event_in_to_out(event_id, event)
         except Exception as e:
