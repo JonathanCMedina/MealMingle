@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from queries.pool import pool
 from queries.pool import pool
 
-class UserIn(BaseModel):
+
 class UserIn(BaseModel):
     full_name: str
     username: str
@@ -10,9 +10,6 @@ class UserIn(BaseModel):
     password: str
     password_confirmation: str
 
-class UserOut(BaseModel):
-    user_id: int
-    full_name: str
 class UserOut(BaseModel):
     user_id: int
     full_name: str
