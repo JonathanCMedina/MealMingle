@@ -10,9 +10,8 @@ router = APIRouter()
 @router.post("/event", response_model=EventOut)
 def create_an_event(
     event: EventIn,
-    repo: EventRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
-):
+    repo: EventRepository = Depends()):
     return repo.create(event)
 
 

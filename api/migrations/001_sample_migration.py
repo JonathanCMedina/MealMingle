@@ -34,7 +34,7 @@ steps = [
         """
         CREATE TABLE events (
             event_id SERIAL PRIMARY KEY NOT NULL,
-            host_id INTEGER REFERENCES users(user_id) UNIQUE,
+            user_id INTEGER REFERENCES users(user_id),
             event_name VARCHAR(1000) NOT NULL,
             address VARCHAR(1000) NOT NULL,
             zipcode INTEGER NOT NULL,
