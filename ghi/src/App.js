@@ -1,9 +1,25 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Construct from "./Construct.js";
+import LoginPage from "./LoginPage.js";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 
+
 function App() {
+  return (
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/login" element={ <LoginPage/>} />
+          <Route path="/" element={MainApp} />
+        </Routes>
+      </Router>
+    </div>
+  );
+}
+
+function MainApp() {
   const [launchInfo, setLaunchInfo] = useState([]);
   const [error, setError] = useState(null);
 
