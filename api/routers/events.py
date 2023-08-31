@@ -11,7 +11,8 @@ router = APIRouter()
 def create_an_event(
     event: EventIn,
     account_data: dict = Depends(authenticator.get_current_account_data),
-    repo: EventRepository = Depends()):
+    repo: EventRepository = Depends(),
+):
     return repo.create(event)
 
 
