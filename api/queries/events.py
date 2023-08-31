@@ -10,8 +10,8 @@ class Error(BaseModel):
 
 
 class EventIn(BaseModel):
-    event_name: str
     user_id: int
+    event_name: str
     address: str
     zipcode: int
     description: str
@@ -35,6 +35,8 @@ class EventOut(EventIn):
 
 
 
+
+
 class EventRepository:
     def get_all_public_events(self) -> Union[List[EventOut], Error]:
         try:
@@ -44,11 +46,13 @@ class EventRepository:
                         """
                         SELECT
                             event_id
+                            , user_id
                             , event_name
                             , address
                             , zipcode
                             , description
                             , event_date
+                            , food_types
                             FROM events
                             ORDER BY event_date;
                         """
@@ -199,9 +203,11 @@ class EventRepository:
     def record_to_event_out(self, record):
         return EventOut(
             event_id=record[0],
-            event_name=record[1],
-            address=record[2],
-            zipcode=record[3],
-            description=record[4],
-            event_date=record[5],
+            user_id=record[1],
+            event_name=record[2],
+            address=record[3],
+            zipcode=record[4],
+            description=record[5],
+            event_date=record[6],
+            food_types=record[7]
         )

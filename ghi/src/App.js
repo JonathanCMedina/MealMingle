@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Construct from "./Construct.js";
+import EventForm from "./EventForm.js";
 import LoginPage from "./LoginPage.js";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
@@ -12,6 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={ <LoginPage/>} />
+          <Route path="/event" element={ <EventForm/>} />
           <Route path="/" element={MainApp} />
         </Routes>
       </Router>
@@ -45,7 +47,6 @@ function MainApp() {
   return (
     <div>
       <ErrorNotification error={error} />
-      <Construct info={launchInfo} />
     </div>
   );
 }
