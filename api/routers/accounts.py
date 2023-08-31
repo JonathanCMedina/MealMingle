@@ -17,7 +17,10 @@ from queries.accounts import (
     UserOut,
     AccountsRepository,
     DuplicateAccountError,
+    Error
 )
+
+from typing import Union, List
 
 
 class AccountForm(BaseModel):
@@ -56,3 +59,11 @@ async def create_account(
     form = AccountForm(username=info.email, password=info.password)
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=account, **token.dict())
+
+
+@router.get("/users", response_model=Union[Error, List[UserOut]])
+def get_all_users(
+    repo: AccountsRepository = Depends(),
+    user_data: dict = Depends(authenticator.get_current_account_data),
+):
+    return repo.get_all_users()

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import Construct from "./Construct.js";
 import EventForm from "./EventForm.js";
 import LoginPage from "./LoginPage.js";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
+import LandingPage from "./LandingPage.js";
+import {Routes, Route, useNavigate} from 'react-router-dom';
+import SignupForm from "./SignupForm.js";
 
 
 function App() {
@@ -13,6 +16,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={ <LoginPage/>} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signup" element={ <SignupForm/>} />
           <Route path="/event" element={ <EventForm/>} />
           <Route path="/" element={MainApp} />
         </Routes>

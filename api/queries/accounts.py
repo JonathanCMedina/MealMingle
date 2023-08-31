@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from queries.pool import pool
 from queries.pool import pool
+from typing import List, Union
 
 
 class UserIn(BaseModel):
@@ -24,6 +25,10 @@ class UserOutWithPassword(UserOut):
 
 class DuplicateAccountError(ValueError):
     pass
+
+
+class Error(BaseModel):
+    message: str
 
 
 class AccountsRepository(BaseModel):
@@ -79,3 +84,30 @@ class AccountsRepository(BaseModel):
         except Exception as e:
             print(e)
             return {"message": "Account not found"}
+
+
+    def get_all_users(self) -> Union[List[UserOut], Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT user_id, full_name, username, email
+                        FROM users
+                        """
+                    )
+                    return [
+                        self.record_to_user_out(record) for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get all users"}
+
+
+    def record_to_user_out(self, record):
+        return UserOut(
+            user_id=record[0],
+            full_name=record[1],
+            username=record[2],
+            email=record[3],
+        )
