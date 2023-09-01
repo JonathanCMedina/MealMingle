@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from datetime import date
 from typing import Optional, List, Union
 from queries.pool import pool
-from queries.accounts import UserOut
+# from queries.accounts import UserOut
 
 
 class Error(BaseModel):
@@ -72,7 +72,24 @@ class EventRepository:
                     result = db.execute(
                         """
                         INSERT INTO events
-                            ( user_id, event_name, address, zipcode, description, event_date, private_event, food_types, alcohol_free, vegan, gluten_free, pescatarian, vegetarian, omnivore, keto_friendly, dairy_free, halal, kosher)
+                            ( user_id,
+                            event_name,
+                            address,
+                            zipcode,
+                            description,
+                            event_date,
+                            private_event,
+                            food_types,
+                            alcohol_free,
+                            vegan,
+                            gluten_free,
+                            pescatarian,
+                            vegetarian,
+                            omnivore,
+                            keto_friendly,
+                            dairy_free,
+                            halal,
+                            kosher)
                         VALUES
                             (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                         RETURNING event_id;
@@ -112,7 +129,24 @@ class EventRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                            SELECT event_id, event_name, address, zipcode, description, event_date, private_event, alcohol_free, vegan, gluten_free, pescatarian, vegetarian, omnivore, keto_friendly, dairy_free, halal, kosher
+                            SELECT
+                            event_id,
+                            event_name,
+                            address,
+                            zipcode,
+                            description,
+                            event_date,
+                            private_event,
+                            alcohol_free,
+                            vegan,
+                            gluten_free,
+                            pescatarian,
+                            vegetarian,
+                            omnivore,
+                            keto_friendly,
+                            dairy_free,
+                            halal,
+                            kosher
                             FROM events
                             WHERE event_id = %s
                         """,

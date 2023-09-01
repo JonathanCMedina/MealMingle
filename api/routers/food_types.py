@@ -14,7 +14,7 @@ async def create_food_type(
 ):
     try:
         return food_type_repo.create_food_type(food_type)
-    except Exception as e:
+    except:
         raise HTTPException(
             status_code=500, detail="Could not create food type"
         )
