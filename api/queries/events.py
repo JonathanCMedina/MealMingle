@@ -157,7 +157,7 @@ class EventRepository:
         except Exception as e:
             print(e)
             return {
-                "message": "Could not get that event with that event id, please try again"
+                "message": "Could not get that event with that event id"
             }
 
     def delete(self, event_id: int) -> bool:
