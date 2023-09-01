@@ -64,7 +64,12 @@ class AccountsRepository(BaseModel):
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT user_id, full_name, username, email, hashed_password
+                        SELECT
+                        user_id,
+                        full_name,
+                        username,
+                        email,
+                        hashed_password
                         FROM users
                         WHERE email = %s
                         """,
