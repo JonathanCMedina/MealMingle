@@ -2,14 +2,18 @@ from pydantic import BaseModel
 from queries.pool import pool
 from typing import List, Union
 
+
 class Error(BaseModel):
     message: str
+
 
 class FoodTypeIn(BaseModel):
     name: str
 
+
 class FoodTypeOut(FoodTypeIn):
     food_type_id: int
+
 
 class FoodTypeRepository:
     def create_food_type(self, food_type: FoodTypeIn) -> FoodTypeIn:
@@ -29,7 +33,7 @@ class FoodTypeRepository:
                         food_type_id=food_type_id, **food_type.dict()
                     )
         except Exception as e:
-            raise e  # Re-raise the exception for proper error handling
+            raise e
 
     def get_all_food_types(self) -> Union[List[FoodTypeOut], Error]:
         try:
@@ -43,7 +47,8 @@ class FoodTypeRepository:
                         """
                     )
                     return [
-                        self.record_to_food_type_in(record) for record in result
+                        self.record_to_food_type_in(record)
+                        for record in result
                     ]
         except Exception as e:
             print(e)

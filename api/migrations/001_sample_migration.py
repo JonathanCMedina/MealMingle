@@ -7,14 +7,13 @@ steps = [
             full_name VARCHAR(256) NOT NULL,
             username VARCHAR NOT NULL UNIQUE,
             email VARCHAR NOT NULL UNIQUE,
-            hashed_password VARCHAR NOT NULL,
-            host_status BOOLEAN
+            hashed_password VARCHAR NOT NULL
         );
         """,
         # "Down" SQL statement
         """
         DROP TABLE users;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -27,7 +26,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE food_types;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -57,7 +56,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE events;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -69,7 +68,91 @@ steps = [
         """,
         # "Down" SQL statement
         """
-        DROP TABLE food_types;
+        DROP TABLE guests;
+        """,
+    ],
+    [
         """
+        INSERT INTO food_types (name) VALUES
+        ('Algerian'),
+        ('American'),
+        ('Angolan'),
+        ('Arab'),
+        ('Argentine / Argentinian'),
+        ('Australian'),
+        ('Austrian'),
+        ('Belgian'),
+        ('Bosnian'),
+        ('Brazilian'),
+        ('British'),
+        ('Cajun'),
+        ('Cambodian'),
+        ('Canadian'),
+        ('Chilean'),
+        ('Colombian'),
+        ('Congolese'),
+        ('Croatian'),
+        ('Cuban'),
+        ('Czech'),
+        ('Dutch'),
+        ('Egyptian'),
+        ('Ethiopian'),
+        ('Filipino'),
+        ('Finnish'),
+        ('French'),
+        ('German'),
+        ('Greek'),
+        ('Haitian'),
+        ('Hawaiian'),
+        ('Hungarian'),
+        ('Indian'),
+        ('Indonesian'),
+        ('Irish'),
+        ('Israeli'),
+        ('Italian'),
+        ('Jamaican'),
+        ('Japanese'),
+        ('Jewish'),
+        ('Kazakh'),
+        ('Kenyan'),
+        ('Korean'),
+        ('Latvian'),
+        ('Libyan'),
+        ('Malagasy'),
+        ('Malaysian'),
+        ('Mexican'),
+        ('Mongolian'),
+        ('New Zealand'),
+        ('Nigerian'),
+        ('Norwegian'),
+        ('Pacific'),
+        ('Pakistani'),
+        ('Peruvian'),
+        ('Polish'),
+        ('Portuguese'),
+        ('Russian'),
+        ('Salvadorian'),
+        ('Scottish'),
+        ('Serbian'),
+        ('Singaporean'),
+        ('Slovak'),
+        ('Slovenian'),
+        ('South African'),
+        ('Spanish'),
+        ('Swedish'),
+        ('Tahitian'),
+        ('Tanzanian'),
+        ('Thai'),
+        ('Tibetan'),
+        ('Turkish'),
+        ('Ukrainian'),
+        ('Uruguayan'),
+        ('Venezuelan'),
+        ('Vietnamese'),
+        ('Welsh');
+        """,
+        """
+        DROP TABLE food_types;
+        """,
     ],
 ]

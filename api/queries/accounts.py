@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from queries.pool import pool
-from queries.pool import pool
 from typing import List, Union
 
 
@@ -90,7 +89,6 @@ class AccountsRepository(BaseModel):
             print(e)
             return {"message": "Account not found"}
 
-
     def get_all_users(self) -> Union[List[UserOut], Error]:
         try:
             with pool.connection() as conn:
@@ -107,7 +105,6 @@ class AccountsRepository(BaseModel):
         except Exception as e:
             print(e)
             return {"message": "Could not get all users"}
-
 
     def record_to_user_out(self, record):
         return UserOut(

@@ -34,9 +34,6 @@ class EventOut(EventIn):
     event_id: int
 
 
-
-
-
 class EventRepository:
     def get_all_public_events(self) -> Union[List[EventOut], Error]:
         try:
@@ -122,31 +119,32 @@ class EventRepository:
             print(e)
             return {"message": "Could not create event"}
 
-
-    def get_one_event(self, event_id: int) -> Optional[EventOut]:
+    def get_one_event(self, event_id: int) -> EventOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
                             SELECT
-                            event_id,
-                            event_name,
-                            address,
-                            zipcode,
-                            description,
-                            event_date,
-                            private_event,
-                            alcohol_free,
-                            vegan,
-                            gluten_free,
-                            pescatarian,
-                            vegetarian,
-                            omnivore,
-                            keto_friendly,
-                            dairy_free,
-                            halal,
-                            kosher
+                                event_id,
+                                user_id,
+                                event_name,
+                                address,
+                                zipcode,
+                                description,
+                                event_date,
+                                private_event,
+                                food_types,
+                                alcohol_free,
+                                vegan,
+                                gluten_free,
+                                pescatarian,
+                                vegetarian,
+                                omnivore,
+                                keto_friendly,
+                                dairy_free,
+                                halal,
+                                kosher
                             FROM events
                             WHERE event_id = %s
                         """,
@@ -244,5 +242,5 @@ class EventRepository:
             zipcode=record[4],
             description=record[5],
             event_date=record[6],
-            food_types=record[7]
+            food_types=record[7],
         )
