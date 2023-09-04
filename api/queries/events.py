@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import date
 from typing import Optional, List, Union
 from queries.pool import pool
+
 # from queries.accounts import UserOut
 
 
@@ -10,14 +11,14 @@ class Error(BaseModel):
 
 
 class EventIn(BaseModel):
-    user_id: int
+    user_id: str
     event_name: str
     address: str
     zipcode: int
     description: str
     event_date: date
     private_event: Optional[bool] = False
-    food_types: int
+    food_types: str
     alcohol_free: Optional[bool] = False
     vegan: Optional[bool] = False
     gluten_free: Optional[bool] = False
@@ -42,16 +43,21 @@ class EventRepository:
                     result = db.execute(
                         """
                         SELECT
-                            event_id
-                            , user_id
-                            , event_name
-                            , address
-                            , zipcode
-                            , description
-                            , event_date
-                            , food_types
-                            FROM events
-                            ORDER BY event_date;
+                            e.event_id,
+                            u.full_name,
+                            e.event_name,
+                            e.address,
+                            e.zipcode,
+                            e.description,
+                            e.event_date,
+                            ft.name
+                        FROM
+                            users u
+                        INNER JOIN events e ON
+                            (u.user_id = e.user_id)
+                        INNER JOIN food_types ft ON
+                            (e.food_types = ft.food_type_id)
+                        ORDER BY event_date;
                         """
                     )
                     return [
@@ -126,39 +132,42 @@ class EventRepository:
                     result = db.execute(
                         """
                             SELECT
-                                event_id,
-                                user_id,
-                                event_name,
-                                address,
-                                zipcode,
-                                description,
-                                event_date,
-                                private_event,
-                                food_types,
-                                alcohol_free,
-                                vegan,
-                                gluten_free,
-                                pescatarian,
-                                vegetarian,
-                                omnivore,
-                                keto_friendly,
-                                dairy_free,
-                                halal,
-                                kosher
-                            FROM events
-                            WHERE event_id = %s
+                                e.event_id,
+                                u.full_name,
+                                e.event_name,
+                                e.address,
+                                e.zipcode,
+                                e.description,
+                                e.event_date,
+                                ft.name,
+                                e.private_event,
+                                e.alcohol_free,
+                                e.vegan,
+                                e.gluten_free,
+                                e.pescatarian,
+                                e.vegetarian,
+                                e.omnivore,
+                                e.keto_friendly,
+                                e.dairy_free,
+                                e.halal,
+                                e.kosher
+                            FROM
+                                users u
+                            INNER JOIN events e ON
+                                (u.user_id = e.user_id)
+                            INNER JOIN food_types ft ON
+                                (e.food_types = ft.food_type_id)
+                            WHERE e.event_id = %s
                         """,
                         [event_id],
                     )
                     record = result.fetchone()
                     if record is None:
-                        return None
+                        return {"message": "Event at that ID does not exist"}
                     return self.record_to_event_out(record)
         except Exception as e:
             print(e)
-            return {
-                "message": "Could not get that event with that event id"
-            }
+            return {"message": "Could not get that event with that event id"}
 
     def delete(self, event_id: int) -> bool:
         try:
