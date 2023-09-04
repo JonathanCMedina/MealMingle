@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from datetime import date
 from typing import Optional, List, Union
 from queries.pool import pool
 
@@ -16,7 +15,7 @@ class EventIn(BaseModel):
     address: str
     zipcode: int
     description: str
-    event_date: date
+    event_date: str
     private_event: Optional[bool] = False
     food_types: str
     alcohol_free: Optional[bool] = False
