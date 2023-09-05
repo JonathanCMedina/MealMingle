@@ -19,7 +19,7 @@ def create_an_event(
 @router.get("/events", response_model=Union[Error, List[EventOut]])
 def get_all_public_events(
     repo: EventRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_all_public_events()
 
@@ -37,7 +37,7 @@ def get_one_event(
     return event
 
 
-@router.put("/events/{event_id}/edit", response_model=Union[EventOut, Error])
+@router.put("/events/{event_id}", response_model=Union[EventOut, Error])
 def edit_event(
     event_id: int,
     event: EventIn,
