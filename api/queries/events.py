@@ -2,8 +2,6 @@ from pydantic import BaseModel
 from typing import Optional, List, Union
 from queries.pool import pool
 
-# from queries.accounts import UserOut
-
 
 class Error(BaseModel):
     message: str

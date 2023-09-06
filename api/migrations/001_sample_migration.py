@@ -62,8 +62,9 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE guests (
-            guest_id INTEGER REFERENCES users(user_id) UNIQUE,
-            event_id INTEGER REFERENCES events(event_id) UNIQUE
+            guest_id SERIAL PRIMARY KEY NOT NULL,
+            guest INTEGER REFERENCES users(user_id),
+            event INTEGER REFERENCES events(event_id)
         );
         """,
         # "Down" SQL statement
