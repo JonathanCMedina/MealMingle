@@ -3,11 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function EditEventPage() {
   const navigate = useNavigate();
-<<<<<<< HEAD
-  const { event_id } = useParams();
-=======
   const {event_id} = useParams();
->>>>>>> main
   const [formData, setFormData] = useState({
     user_id: 0,
     event_name: '',
@@ -29,24 +25,6 @@ function EditEventPage() {
     kosher: false,
   });
 
-<<<<<<< HEAD
-  useEffect(() => {
-    async function fetchEventData() {
-      try {
-        const response = await fetch(`http://localhost:8000/events/${event_id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setFormData(data);
-        } else {
-          console.error('Failed to fetch event data');
-        }
-      } catch (error) {
-        console.error('Fetch error:', error);
-      }
-    }
-    fetchEventData();
-  }, [event_id]);
-=======
 useEffect(() => {
   async function fetchEventData() {
     try {
@@ -63,7 +41,6 @@ useEffect(() => {
   }
   fetchEventData();
 }, [event_id]);
->>>>>>> main
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -157,20 +134,12 @@ useEffect(() => {
           onChange={handleInputChange}
         />
       </div>
-<<<<<<< HEAD
-      <div className="mb-4">
-=======
        <div className="mb-4">
->>>>>>> main
         <label className="block mb-2">Food Type:</label>
         <input
           type="number"
           name="food_types"
-<<<<<<< HEAD
-          value={formData.food_types}
-=======
           checked={formData.food_types}
->>>>>>> main
           onChange={handleInputChange}
         />
       </div>
@@ -195,7 +164,6 @@ useEffect(() => {
             />
             Vegan
           </label>
-<<<<<<< HEAD
           <label className="mr-4">
             <input
               type="checkbox"
@@ -268,10 +236,6 @@ useEffect(() => {
             />
             Kosher
           </label>
-=======
-          {/* Add checkboxes for other attributes */}
-          {/* ... */}
->>>>>>> main
         </div>
       </div>
       <button
