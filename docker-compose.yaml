@@ -1,5 +1,5 @@
 volumes:
-  meal_mingle:
+  mealmingle:
     external: true
 services:
   fastapi:
@@ -9,7 +9,7 @@ services:
       WAIT_BEFORE: 5
       WAIT_TIMEOUT: 60
       CORS_HOST: http://localhost:3000
-      DATABASE_URL: postgresql://admin:password@postgres/meal_mingle
+      DATABASE_URL: postgresql://admin:password@postgres/mealmingle
       PORT: 8000
     build:
       context: api
@@ -21,11 +21,11 @@ services:
   postgres:
     image: postgres:14.5-bullseye
     volumes:
-      - meal_mingle:/var/lib/postgresql/data
+      - mealmingle:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: admin
-      POSTGRES_DB: meal_mingle
+      POSTGRES_DB: mealmingle
     ports:
       - "15432:5432"
   ghi:
