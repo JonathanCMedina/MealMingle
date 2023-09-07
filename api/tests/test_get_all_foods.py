@@ -21,7 +21,7 @@ def test_get_all_food_types():
         MyAuthenticator.get_current_account_data
     ] = fake_get_all_food_types
 
-    response = client.get("/api/foods")
+    response = client.get("/foods")
 
     app.dependency_overrides = {}
 
