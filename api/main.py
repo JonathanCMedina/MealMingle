@@ -8,9 +8,9 @@ app = FastAPI()
 
 app.include_router(events.router, tags=["events"])
 app.include_router(invite.router, tags=["invite"])
-app.include_router(accounts.router, prefix="/api", tags=["accounts"])
+app.include_router(accounts.router, tags=["accounts"])
 app.include_router(authenticator.router)
-app.include_router(food_types.router, prefix="/api", tags=["food_types"])
+app.include_router(food_types.router, tags=["food_types"])
 
 app.add_middleware(
     CORSMiddleware,
