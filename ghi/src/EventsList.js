@@ -9,7 +9,6 @@ function EventsList(props) {
   useEffect(() => {
     if (!token) return;
     async function fetchEvents() {
-
         let url = `http://localhost:8000/events`;
         const fetchConfig = {
           credentials: "include",
@@ -24,7 +23,6 @@ function EventsList(props) {
         if (response.ok) {
           let data = await response.json();
           setEventsList(data);
-          console.log(eventsList);
         } else {
           console.error("An error has occurred fetching the URL");
         }
