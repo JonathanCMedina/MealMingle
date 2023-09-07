@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 function EditEventPage() {
   const navigate = useNavigate();
+  const {token} = useAuthContext();
   const {event_id} = useParams();
   const [formData, setFormData] = useState({
-    user_id: 0,
+    user_id: '',
     event_name: '',
     address: '',
     zipcode: 0,
     description: '',
     event_date: '',
     private_event: false,
-    food_types: 0,
+    food_types: '',
     alcohol_free: false,
     vegan: false,
     gluten_free: false,
@@ -26,9 +28,18 @@ function EditEventPage() {
   });
 
 useEffect(() => {
+  if (!token) return ;
   async function fetchEventData() {
+    const fetchToken = {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      }
+    }
     try {
-      const response = await fetch(`http://localhost:8000/events/${event_id}`);
+      const response = await fetch(`http://localhost:8000/events/${event_id}`, fetchToken);
       if (response.ok) {
         const data = await response.json();
         setFormData(data);
@@ -40,7 +51,7 @@ useEffect(() => {
     }
   }
   fetchEventData();
-}, [event_id]);
+}, [token, event_id]);
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -60,6 +71,7 @@ useEffect(() => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
