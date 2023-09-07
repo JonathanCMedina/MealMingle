@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import EventsList from "./EventsList";
 import EventForm from "./EventForm.js";
 import LoginForm from "./LoginForm.jsx";
@@ -12,21 +12,23 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '')
   return (
     <div>
-      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-        <Router>
-          <Routes>
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/signup" element={<SignupForm />} />
-            <Route path="/event" element={<EventForm />} />
-            <Route path="/events/:event_id/edit" element={<EditEventPage/>} />
-            {/* <Route path="/main" element={<MainApp />} /> This path currently has no js file linked */}
-            <Route path="/events" element={<EventsList />} />
-          </Routes>
-        </Router>
-      </AuthProvider>
+        <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+          <BrowserRouter basename={basename}>
+            <Routes>
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/signup" element={<SignupForm />} />
+              <Route path="/event" element={<EventForm />} />
+              <Route path="/events/:event_id/edit" element={<EditEventPage/>} />
+              {/* <Route path="/main" element={<MainApp />} /> This path currently has no js file linked */}
+              <Route path="/events" element={<EventsList />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
     </div>
   );
 }
