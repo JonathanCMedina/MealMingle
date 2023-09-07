@@ -4,24 +4,33 @@ import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 function EventsList(props) {
   const [eventsList, setEventsList] = useState([]);
+  const { token } = useAuthContext();
 
   useEffect(() => {
+    if (!token) return;
     async function fetchEvents() {
-      let url = `http://localhost:8000/events`;
-      console.log("fastapi url: ", url);
-      let response = await fetch(url);
-      console.log("Successfully fetched the URL!");
 
-      if (response.ok) {
-        let data = await response.json();
-        setEventsList(data);
-        console.log(eventsList);
-      } else {
-        console.error("An error has occurred fetching the URL");
-      }
-    }
+        let url = `http://localhost:8000/events`;
+        const fetchConfig = {
+          credentials: "include",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content": "application/json",},
+          }
+        console.log("fastapi url: ", url);
+        const response = await fetch(url, fetchConfig);
+        console.log("Successfully fetched the URL!");
+
+        if (response.ok) {
+          let data = await response.json();
+          setEventsList(data);
+          console.log(eventsList);
+        } else {
+          console.error("An error has occurred fetching the URL");
+        }
+  }
     fetchEvents();
-  }, []);
+  }, [token]);
 
   return (
     <div>

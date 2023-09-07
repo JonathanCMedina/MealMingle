@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import EventsList from "./EventsList";
 import EventForm from "./EventForm.js";
-import LoginPage from "./LoginPage.jsx";
+import LoginForm from "./LoginForm.jsx";
 import "./App.css";
 import LandingPage from "./LandingPage.js";
 import SignupForm from "./SignupForm.js";
@@ -17,7 +17,7 @@ function App() {
       <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
         <Router>
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<LoginForm />} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/event" element={<EventForm />} />
