@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import ErrorNotification from './ErrorNotification';
+import React, {useState} from 'react';
 
 const SignupForm = () => {
     const [full_name, setFullName] = useState('');
@@ -7,7 +6,7 @@ const SignupForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [ErrorNotification, setErrorNotification] = useState('')
+ 
 
 
      const submitSignup = async () => {
@@ -39,7 +38,7 @@ const SignupForm = () => {
         if (password === passwordConfirmation) {
             submitSignup();
         } else {
-            setErrorNotification('Ensure passwords match to continue')
+            console.log("Error Message: update this before submitting")
         }
     }
 
@@ -106,7 +105,6 @@ const SignupForm = () => {
                 <button className='button' type='submit'>Create</button>
 
             </form>
-
         </div>
     )
 
