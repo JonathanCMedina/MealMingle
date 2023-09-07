@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
+
 function EventsList(props) {
   const [eventsList, setEventsList] = useState([]);
 

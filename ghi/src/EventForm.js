@@ -28,26 +28,29 @@ function EventForm() {
   });
 
 
-  const fetchFoodTypeData = async () => {
-    const url = `http://localhost:8000/foods`;
-    const fetchConfig = {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    }
 
-    const response = await fetch(url, fetchConfig);
-    if (response.ok) {
-      const data = await response.json();
-      let dataOfFood = data;
-      setFoodTypes(dataOfFood);
-    }
-  };
 
   useEffect(() => {
-    fetchFoodTypeData();
-  }, []);
+    if (!token) return ;
+    async function fetchFoodTypeData() {
+      const url = `http://localhost:8000/foods`;
+      const fetchConfig = {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        }
+      }
+        const response = await fetch(url, fetchConfig);
+          if (response.ok) {
+            const data = await response.json();
+            let dataOfFood = data;
+            setFoodTypes(dataOfFood);
+        }
+    } fetchFoodTypeData();
+  }, [token]);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
