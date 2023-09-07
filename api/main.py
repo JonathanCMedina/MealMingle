@@ -14,7 +14,7 @@ app.include_router(food_types.router, tags=["food_types"])
 
 
 origins = [
-    "http://localhost:3000",
+    "https://mealmingle.gitlab.io/module3-project-gamma",
     os.environ.get("CORS_HOST", None),
 ]
 
