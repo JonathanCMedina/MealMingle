@@ -8,34 +8,31 @@ client = TestClient(app)
 
 
 class MockEventRepository:
-    def update(self):
-        return []
-        # expected_event_id = 0
-        # expected_event_data = {
-        #     "user_id": "1",
-        #     "event_name": "updated",
-        #     "address": "string",
-        #     "zipcode": 0,
-        #     "description": "string",
-        #     "event_date": "string",
-        #     "private_event": False,
-        #     "food_types": "3",
-        #     "alcohol_free": False,
-        #     "vegan": False,
-        #     "gluten_free": False,
-        #     "pescatarian": False,
-        #     "vegetarian": False,
-        #     "omnivore": False,
-        #     "keto_friendly": False,
-        #     "dairy_free": False,
-        #     "halal": False,
-        #     "kosher": False,
-        # }
+    def update(self, event_id, event):
+        expected_event_id = 0
+        expected_event_data = {
+            "user_id": "1",
+            "event_name": "updated",
+            "address": "string",
+            "zipcode": 0,
+            "description": "string",
+            "event_date": "string",
+            "private_event": False,
+            "food_types": "3",
+            "alcohol_free": False,
+            "vegan": False,
+            "gluten_free": False,
+            "pescatarian": False,
+            "vegetarian": False,
+            "omnivore": False,
+            "keto_friendly": False,
+            "dairy_free": False,
+            "halal": False,
+            "kosher": False,
+        }
 
-        # if event_id == expected_event_id and event == expected_event_data:
-        #     return {"message": "Event updated successfully"}
-        # else:
-        #     return {"message": "Event update failed"}
+        if event_id == expected_event_id and event == expected_event_data:
+            return event
 
 
 # class User:
@@ -89,7 +86,6 @@ def test_edit_event():
     response_data = response.json()
     print(response_data)
     print(edit_data.user_id)
-
     assert response_data['user_id'] == edit_data.user_id
     assert response_data['event_name'] == edit_data.event_name
     assert response_data['address'] == edit_data.address
