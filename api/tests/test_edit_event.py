@@ -47,7 +47,7 @@ class User:
 
 def fake_get_account_data():
     return dict(UserOut(
-            user_id=0,
+            user_id=1,
             full_name="string",
             username="string",
             email="string"
