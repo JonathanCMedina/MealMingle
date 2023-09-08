@@ -2,6 +2,8 @@ from fastapi.testclient import TestClient
 from queries.events import EventIn
 from authenticator import MyAuthenticator
 from main import app
+from queries.accounts import UserOut
+from authenticator import authenticator
 
 client = TestClient(app)
 
@@ -45,19 +47,20 @@ class User:
 
 
 def fake_get_account_data():
-    # Return a fake user data as a dictionary
-    return User(
-        user_id=1,
-        full_name="John Doe",
-        username="johndoe",
-        email="johndoe@example.com",
-    )
+    return dict(UserOut(
+            user_id=0,
+            full_name="string",
+            username="string",
+            email="string"
+            ))
+
 
 
 def test_edit_event():
     app.dependency_overrides[
-        MyAuthenticator.get_current_account_data
+        authenticator.get_current_account_data
     ] = fake_get_account_data
+
 
     edit_data = EventIn(
         user_id="1",
