@@ -37,12 +37,12 @@ class MockEventRepository:
             return {"message": "Event update failed"}
 
 
-class User:
-    def __init__(self, user_id, full_name, username, email):
-        self.user_id = user_id
-        self.full_name = full_name
-        self.username = username
-        self.email = email
+# class User:
+#     def __init__(self, user_id, full_name, username, email):
+#         self.user_id = user_id
+#         self.full_name = full_name
+#         self.username = username
+#         self.email = email
 
 
 def fake_get_account_data():
@@ -86,22 +86,23 @@ def test_edit_event():
     assert response.status_code == 200
 
     response_data = response.json()
+    print(response_data)
 
-    assert response_data["user_id"] == edit_data.user_id
-    assert response_data["event_name"] == edit_data.event_name
-    assert response_data["address"] == edit_data.address
-    assert response_data["zipcode"] == edit_data.zipcode
-    assert response_data["description"] == edit_data.description
-    assert response_data["event_date"] == edit_data.event_date
-    assert response_data["private_event"] == edit_data.private_event
-    assert response_data["food_types"] == edit_data.food_types
-    assert response_data["alcohol_free"] == edit_data.alcohol_free
-    assert response_data["vegan"] == edit_data.vegan
-    assert response_data["gluten_free"] == edit_data.gluten_free
-    assert response_data["pescatarian"] == edit_data.pescatarian
-    assert response_data["vegetarian"] == edit_data.vegetarian
-    assert response_data["omnivore"] == edit_data.omnivore
-    assert response_data["keto_friendly"] == edit_data.keto_friendly
-    assert response_data["dairy_free"] == edit_data.dairy_free
-    assert response_data["halal"] == edit_data.halal
-    assert response_data["kosher"] == edit_data.kosher
+    assert response_data['user_id'] == edit_data.user_id
+    assert response_data['event_name'] == edit_data.event_name
+    assert response_data['address'] == edit_data.address
+    assert response_data['zipcode'] == edit_data.zipcode
+    assert response_data['description'] == edit_data.description
+    assert response_data['event_date'] == edit_data.event_date
+    assert response_data['private_event'] == edit_data.private_event
+    assert response_data['food_types'] == edit_data.food_types
+    assert response_data['alcohol_free'] == edit_data.alcohol_free
+    assert response_data['vegan'] == edit_data.vegan
+    assert response_data['gluten_free'] == edit_data.gluten_free
+    assert response_data['pescatarian'] == edit_data.pescatarian
+    assert response_data['vegetarian'] == edit_data.vegetarian
+    assert response_data['omnivore'] == edit_data.omnivore
+    assert response_data['keto_friendly'] == edit_data.keto_friendly
+    assert response_data['dairy_free'] == edit_data.dairy_free
+    assert response_data['halal'] == edit_data.halal
+    assert response_data['kosher'] == edit_data.kosher
