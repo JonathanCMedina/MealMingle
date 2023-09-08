@@ -8,6 +8,7 @@ import LandingPage from "./LandingPage.js";
 import SignupForm from "./SignupForm.js";
 import EditEventPage from "./EditEvent.js";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import MainPage from "./MainPage";
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
           <BrowserRouter basename={basename}>
             <Routes>
+              <Route path="/main" element={<MainPage />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/" element={<LandingPage />} />
               <Route path="/signup" element={<SignupForm />} />
