@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from queries.events import EventIn, EventRepository, EventOut
+from queries.events import EventRepository, EventOut
 from main import app
 from queries.accounts import UserOut
 from authenticator import authenticator
