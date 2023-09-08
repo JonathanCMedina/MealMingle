@@ -6,7 +6,6 @@ from authenticator import authenticator
 
 client = TestClient(app)
 
-
 class MockEventRepository:
     def update(self, event_id, event):
         expected_event_id = 0
@@ -54,12 +53,10 @@ def fake_get_account_data():
             ))
 
 
-
 def test_edit_event():
     app.dependency_overrides[
         authenticator.get_current_account_data
     ] = fake_get_account_data
-
 
     edit_data = EventIn(
         user_id="1",

@@ -15,6 +15,7 @@ class EmptyEventsRepository:
 def fake_get_all_public_events():
     return []
 
+
 def fake_get_account_data():
     return dict(UserOut(
             user_id=0,

@@ -15,6 +15,7 @@ class EmptyFoodsRepository:
 def fake_get_all_food_types():
     return []
 
+
 def fake_get_account_data():
     return dict(UserOut(
             user_id=0,
@@ -22,6 +23,7 @@ def fake_get_account_data():
             username="string",
             email="string"
             ))
+
 
 def test_get_all_food_types():
     app.dependency_overrides[FoodTypeRepository] = EmptyFoodsRepository
