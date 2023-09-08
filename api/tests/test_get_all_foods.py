@@ -1,6 +1,5 @@
 from fastapi.testclient import TestClient
 from queries.food_types import FoodTypeRepository
-from authenticator import MyAuthenticator
 from authenticator import authenticator
 from queries.accounts import UserOut
 from main import app
