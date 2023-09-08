@@ -28,24 +28,23 @@ class EmptyEvent:
             dairy_free=False,
             halal=False,
             kosher=False,
-            event_id=1
+            event_id=1,
         )
 
 
 def fake_get_account_data():
-    return dict(UserOut(
-            user_id=0,
-            full_name="string",
-            username="string",
-            email="string"
-            ))
+    return dict(
+        UserOut(
+            user_id=0, full_name="string", username="string", email="string"
+        )
+    )
 
 
 def test_get_event():
     app.dependency_overrides[EventRepository] = EmptyEvent
     app.dependency_overrides[
         authenticator.get_current_account_data
-        ] = fake_get_account_data
+    ] = fake_get_account_data
 
     expected = {
         "user_id": "1",
@@ -66,7 +65,7 @@ def test_get_event():
         "dairy_free": False,
         "halal": False,
         "kosher": False,
-        "event_id": 1
+        "event_id": 1,
     }
 
     response = client.get("/events/0")
