@@ -6,6 +6,7 @@ from authenticator import authenticator
 
 client = TestClient(app)
 
+
 class MockEventRepository:
     def update(self, event_id, event):
         expected_event_id = 0
