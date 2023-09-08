@@ -9,7 +9,6 @@ client = TestClient(app)
 
 class MockEventRepository:
     def update(self, event_id: int, edit_data: EventOut):
-
         return {
             "event_id": event_id,
             "user_id": 1,
@@ -29,17 +28,16 @@ class MockEventRepository:
             "keto_friendly": edit_data.keto_friendly,
             "dairy_free": edit_data.dairy_free,
             "halal": edit_data.halal,
-            "kosher": edit_data.kosher
+            "kosher": edit_data.kosher,
         }
 
 
 def fake_get_account_data():
-    return dict(UserOut(
-            user_id="1",
-            full_name="string",
-            username="string",
-            email="string"
-            ))
+    return dict(
+        UserOut(
+            user_id="1", full_name="string", username="string", email="string"
+        )
+    )
 
 
 def test_edit_event():

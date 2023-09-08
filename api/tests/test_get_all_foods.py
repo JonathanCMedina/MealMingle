@@ -17,12 +17,11 @@ def fake_get_all_food_types():
 
 
 def fake_get_account_data():
-    return dict(UserOut(
-            user_id=0,
-            full_name="string",
-            username="string",
-            email="string"
-            ))
+    return dict(
+        UserOut(
+            user_id=0, full_name="string", username="string", email="string"
+        )
+    )
 
 
 def test_get_all_food_types():
