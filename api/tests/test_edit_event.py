@@ -87,6 +87,7 @@ def test_edit_event():
 
     response_data = response.json()
     print(response_data)
+    print(edit_data.user_id)
 
     assert response_data['user_id'] == edit_data.user_id
     assert response_data['event_name'] == edit_data.event_name
