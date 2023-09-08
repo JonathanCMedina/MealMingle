@@ -31,10 +31,10 @@ class MockEventRepository:
             "kosher": False,
         }
 
-        if event_id == expected_event_id and event == expected_event_data:
-            return {"message": "Event updated successfully"}
-        else:
-            return {"message": "Event update failed"}
+        # if event_id == expected_event_id and event == expected_event_data:
+        #     return {"message": "Event updated successfully"}
+        # else:
+        #     return {"message": "Event update failed"}
 
 
 # class User:
