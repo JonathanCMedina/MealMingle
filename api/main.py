@@ -12,13 +12,15 @@ app.include_router(accounts.router, tags=["accounts"])
 app.include_router(authenticator.router, tags=["accounts"])
 app.include_router(food_types.router, tags=["food_types"])
 
+origins = [
+    "https://mealmingle.gitlab.io",
+    "http://localhost:3000",
+    os.environ.get("CORS_HOST"),
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.environ.get(
-        "CORS_HOST",
-        "http://localhost:3000"),
-        "https://mealmingle.gitlab.io"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
