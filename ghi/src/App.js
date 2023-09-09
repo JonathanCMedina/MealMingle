@@ -7,22 +7,15 @@ import "./App.css";
 import LandingPage from "./LandingPage.js";
 import SignupForm from "./SignupForm.js";
 import EditEventPage from "./EditEvent.js";
-import { AuthProvider, useToken } from "@galvanize-inc/jwtdown-for-react";
-
-function GetToken() {
-  useToken();
-  return null;
-}
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   return (
     <div>
-      {/* <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}> */}
-      <BrowserRouter basename={basename}>
-        <AuthProvider>
-          <GetToken />
+      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+        <BrowserRouter basename={basename}>
           <Routes>
             <Route path="/login" element={<LoginForm />} />
             <Route path="/" element={<LandingPage />} />
@@ -32,8 +25,8 @@ function App() {
             {/* <Route path="/main" element={<MainApp />} /> This path currently has no js file linked */}
             <Route path="/events" element={<EventsList />} />
           </Routes>
-        </AuthProvider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }
