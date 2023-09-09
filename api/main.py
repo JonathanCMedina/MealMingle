@@ -18,7 +18,7 @@ app.add_middleware(
     allow_origins=[os.environ.get(
         "CORS_HOST",
         "http://localhost:3000"),
-        "https://mealmingle.gitlab.io/mealmingle"],
+        "https://mealmingle.gitlab.io"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
