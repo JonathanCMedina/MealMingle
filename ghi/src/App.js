@@ -7,7 +7,7 @@ import "./App.css";
 import LandingPage from "./LandingPage.js";
 import SignupForm from "./SignupForm.js";
 import EditEventPage from "./EditEvent.js";
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import { AuthProvider, useToken } from "@galvanize-inc/jwtdown-for-react";
 
 function GetToken() {
   useToken();
