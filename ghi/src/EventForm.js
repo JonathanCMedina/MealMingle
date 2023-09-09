@@ -28,7 +28,7 @@ function EventForm() {
   useEffect(() => {
     if (!token) return;
     async function fetchFoodTypeData() {
-      const url = `http://localhost:8000/foods`;
+      const url = `${process.env.REACT_APP_API_HOST}/foods`;
       const fetchConfig = {
         method: "GET",
         credentials: "include",
@@ -50,7 +50,7 @@ function EventForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const url = `http://localhost:8000/event`;
+    const url = `${process.env.REACT_APP_API_HOST}/event`;
 
     const fetchConfig = {
       method: "POST",
