@@ -270,7 +270,7 @@ Expected Outcome:
 |GET | [http://localhost:3000/signup](http://localhost:3000/signup) | Frontend url for form to create a new user account
 
 Screenshot: 
-![Landing Page](ghi/src/Images/meal-mingle-signup.png "Screenshot of signup form for Meal Mingle")
+![Landing Page](ghi/src/Images/meal-mingle-signup.png)
 
 
 
