@@ -7,7 +7,7 @@ const Nav = (props) => {
     if (token) {
         return (
             <div>
-                <h1>Meal Mingle With Token</h1>
+                <h1>Meal Mingle</h1>
                 <div>
                     <ul>
                         <li>
@@ -17,7 +17,10 @@ const Nav = (props) => {
                             <NavLink className="nav-link" to="/event">Create An Event</NavLink>
                         </li>
                         <li>
-                            <NavLink className="nav-link" to="/">My Events</NavLink>
+                            <NavLink className="nav-link" to="/events">All Events</NavLink>
+                        </li>
+                        <li>
+                            <NavLink className="nav-link" to="/users/events">My Events</NavLink>
                         </li>
                     </ul>
                 </div>
@@ -26,7 +29,7 @@ const Nav = (props) => {
     } else {
         return (
             <div>
-                <h1>Meal Mingle No Token</h1>
+                <h1>Meal Mingle</h1>
                 <div>
                     <ul>
                         <li>
