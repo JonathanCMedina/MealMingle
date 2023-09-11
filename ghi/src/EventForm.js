@@ -88,15 +88,15 @@ function EventForm() {
     }
   };
   const handleFormChange = (e) => {
-    const value = e.target.value;
-    const inputName = e.target.name;
+    const { name, value, type, checked } = e.target;
+    const parsedValue = type === "number" ? parseInt(value) : value;
 
     setFormData({
       ...formData,
-      [inputName]: value,
+      [name]: value,
+      [name]: type === "checkbox" ? checked : parsedValue,
     });
   };
-
   return (
     <form id="create-event-form">
       <div className="px-10 py-10 grid grid-cols-6 gap-4">
@@ -309,15 +309,15 @@ function EventForm() {
           <div className="flex items-center h-5">
             <input
               onChange={handleFormChange}
-              name="private"
-              id="private"
+              name="private_event"
+              id="private_event"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
             />
           </div>
           <label
-            htmlFor="private"
+            htmlFor="private_event"
             className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Private Event
@@ -338,7 +338,6 @@ function EventForm() {
             onChange={handleFormChange}
           >
             <option value="">Food Type</option>
-            {/* FIND A WAY TO LIMIT THE AMOUNT OF FOOD TYPES THAT DISPLAY TO 10 AT A TIME */}
             {foodTypes?.map((foodType) => {
               return (
                 <option
@@ -359,6 +358,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="alcohol_free"
+              name="alcohol_free"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -377,6 +377,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="vegan"
+              name="vegan"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -395,6 +396,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="gluten_free"
+              name="gluten_free"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -413,6 +415,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="pescatarian"
+              name="pescatarian"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -431,6 +434,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="vegetarian"
+              name="vegetarian"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -449,6 +453,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="omnivore"
+              name="omnivore"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -467,6 +472,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="keto_friendly"
+              name="keto_friendly"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -485,6 +491,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="dairy_free"
+              name="dairy_free"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -503,6 +510,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="halal"
+              name="halal"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
@@ -521,6 +529,7 @@ function EventForm() {
             <input
               onChange={handleFormChange}
               id="kosher"
+              name="kosher"
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
