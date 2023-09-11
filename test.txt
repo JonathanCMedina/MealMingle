@@ -1,0 +1,5 @@
+glv-cloud-cli deploy -a mealmingleapi -i registry.gitlab.com/mealmingle/module3-project-gamma/api:latest -e SIGNING_KEY=87fe4a3fcfb60092dbaeb854a196bc3d9b190aed7930c734749e85245de698420c25f8e6899c421b4494e99459e01058de5daa9d49584cd62ec975da9aea33da -e DATABASE_URL=postgresql://admin:password@may-13-pt-mealmingle-service.default.svc.cluster.local/postgres -e CORS_HOST=https://mealmingle.gitlab.io
+
+
+
+glv-cloud-cli deploy -a mealmingle -i postgres:14.5-bullseye -e POSTGRES_DB=mealmingle -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=password -m /var/lib/postgresql -p 5432 -x=false

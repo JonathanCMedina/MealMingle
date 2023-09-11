@@ -7,26 +7,31 @@ import "./App.css";
 import LandingPage from "./LandingPage.js";
 import SignupForm from "./SignupForm.js";
 import EditEventPage from "./EditEvent.js";
+import EventDetails from "./EventDetail";
+import UserEventsList from "./UserEventList";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   return (
     <div>
-      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-        <BrowserRouter basename={basename}>
-          <Routes>
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/signup" element={<SignupForm />} />
-            <Route path="/event" element={<EventForm />} />
-            <Route path="/events/:event_id/edit" element={<EditEventPage />} />
-            {/* <Route path="/main" element={<MainApp />} /> This path currently has no js file linked */}
-            <Route path="/events" element={<EventsList />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+        <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+          <BrowserRouter basename={basename}>
+            <Routes>
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/signup" element={<SignupForm />} />
+              <Route path="/event" element={<EventForm />} />
+              <Route path="/events/:event_id/edit" element={<EditEventPage/>} />
+              {/* <Route path="/main" element={<MainApp />} /> This path currently has no js file linked */}
+              <Route path="/events" element={<EventsList />} />
+              <Route path="/events/:event_id" element={<EventDetails />} />
+              <Route path="/users/events" element={<UserEventsList />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
     </div>
   );
 }
