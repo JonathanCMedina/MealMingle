@@ -1,409 +1,142 @@
-# MealMingle
+# Module3 Project Gamma
+
+## Getting started
+
+You have a project repository, now what? The next section
+lists all of the deliverables that are due at the end of the
+week. Below is some guidance for getting started on the
+tasks for this week.
+
+## Install Extensions
+
+- Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
+- Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+
+## Deliverables
+
+- [ ] Wire-frame diagrams
+- [ ] API documentation
+- [ ] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
+- [ ] GitLab issue board is setup and in use (or project management tool of choice)
+- [ ] Journals
+
+## Project layout
+
+The layout of the project is just like all of the projects
+you did with `docker-compose` in module #2. You will create
+a directory in the root of the repository for each service
+that you add to your project just like those previous
+projects were setup.
+
+### Directories
 
-  
+Several directories have been added to your project. The
+directories `docs` and `journals` are places for you and
+your team-mates to, respectively, put any documentation
+about your project that you create and to put your
+project-journal entries. See the _README.md_ file in each
+directory for more info.
 
-Team:
+The other directories, `ghi` and `api`, are services, that
+you can start building off of.
 
-* Jonathan Ceasar Medina(@Jonathan.C.Medina on Gitlab / @JonathanCMedina on Github) - 
-* Mitchell Mora (@MitchM23 on Gitlab)
-* Mitchell Wong (@Managedmitch on Gitlab)
-* Naomi Campos (@Naomikc92 on Gitlab)
+Inside of `ghi` is a minimal React app that has an "under
+construction" page. It is setup similarly to all of the
+other React projects that you have worked on.
 
-  
+Inside of `api` is a minimal FastAPI application.
+"Where are all the files?" you might ask? Well, the
+`main.py` file is the whole thing, and go take look inside
+of it... There's not even much in there..., hmm? That is
+FastAPI, we'll learn more about it in the coming days. Can
+you figure out what this little web-application does even
+though you haven't learned about FastAPI yet?
 
-## MealMingle's Vision 
+Also in `api` is a directory for your migrations.
+If you choose to use PostgreSQL, then you'll want to use
+migrations to control your database. Unlike Django, where
+migrations were automatically created for you, you'll write
+yours by hand using DDL. Don't worry about not knowing what
+DDL means; we have you covered. There's a sample migration
+in there that creates two tables so you can see what they
+look like.
 
-MealMingle was created to be a premiere solution to scheduling and organizing dinner parties, as well as other events. 
-Thinking of throwing a surprise birthday party for a friend at your home? Share the details to friends and family so they can be added to the guest list. Or what about a movie night in with a few people? Just write in the event name, description of the event, location, and customize with some dietary restrictions on the food being brought or served! 
+The Dockerfile and Dockerfile.dev run your migrations
+for you automatically.
 
-MealMingle uses RESTful API patterns to Create, Read, Update, and Delete information. 
-These functions can be completed both on the frontend through the https://mealmingle.gitlab.io/mealmingle/ website and the backend through the FastAPI docs page https://localhost:8000/docs# 
+### Other files
 
-The application uses Docker for containerization. 
+The following project files have been created as a minimal
+starting point. Please follow the guidance for each one for
+a most successful project.
 
-The backend endpoints are created with Python and Pydantic models. Backend authentication is used from the JWTDown FastAPI Auth Library https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/. The backend database is created using Postgresql and is stored and managed through Caprover. 
+- `docker-compose.yaml`: there isn't much in here, just a
+  **really** simple UI and FastAPI service. Add services
+  (like a database) to this file as you did with previous
+  projects in module #2.
+- `.gitlab-ci.yml`: This is your "ci/cd" file where you will
+  configure automated unit tests, code quality checks, and
+  the building and deployment of your production system.
+  Currently, all it does is deploy an "under construction"
+  page to your production UI on GitLab and a sample backend
+  to CapRover. We will learn much more about this file.
+- `.gitignore`: This is a file that prevents unwanted files
+  from getting added to your repository, files like
+  `pyc` files, `__pycache__`, etc. We've set it up so that
+  it has a good default configuration for Python projects.
+- `.env.sample`: This file is a template to copy when
+  creating environment variables for your team. Create a
+  copy called `.env` and put your own passwords in here
+  without fear of it being committed to git (see `.env`
+  listed in `.gitignore`). You can also put team related
+  environment variables in here, things like api and signing
+  keys that shouldn't be committed; these should be
+  duplicated in your deployed environments.
 
-The frontend Graphical Human Interface (GHI) are primarily created with JavaScript files. Styling were created with the use of JSX and TailwindCSS. Frontend authentication were imported from the Galvanize Auth Library https://gitlab.com/galvanize-inc/foss/jwtdown-for-react. The Frontend website is deployed through Gitlab. 
+## How to complete the initial deploy
 
-  
+There will be further guidance on completing the initial
+deployment, but it just consists of these steps:
 
-## Instructions on running the application
+### Setup GitLab repo/project
 
-### Prior to running the application, you will want to download a few applications/tools:
+- make sure this project is in a group. If it isn't, stop
+  now and move it to a GitLab group
+- remove the fork relationship: In GitLab go to:
 
-* VSCode (or a similar IDE/Integrated Development Environment)
+  Settings -> General -> Advanced -> Remove fork relationship
 
-* Docker desktop (to create volumes, images, and containers to run the application)
+- add these GitLab CI/CD variables:
+  - PUBLIC_URL : this is your gitlab pages URL
+  - REACT_APP_API_HOST: enter "blank" for now
 
-* Beekeeper Studios (to checke the database)
+#### Your GitLab pages URL
 
-* A web-based browser (preferably Google Chrome)
+You can't find this in GitLab until after you've done a deploy
+but you can figure it out yourself from your GitLab project URL.
 
-  
+If this is your project URL
 
-### Once those requirements are met:
+https://gitlab.com/GROUP_NAME/PROJECT_NAME
 
-* Turn on Docker desktop
+then your GitLab pages URL will be
 
-* Go to https://gitlab.com/mealmingle/module3-project-gamma then fork and clone the repository
+https://GROUP_NAME.gitlab.io/PROJECT_NAME
 
-* `cd` into the `module3-project-gamma` directory then open VSCode or your preferred IDE
+### Initialize CapRover
 
-* To run the program, type the following commands in the terminal:
+1. Attain IP address and domain from an instructor
+1. Follow the steps in the CD Cookbook in Learn.
 
-* `docker volume create mealmingle`
+### Update GitLab CI/CD variables
 
-* `docker-compose build` OR if you are on an M1 Chip or M2 Chip Mac device: `DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build`
+Copy the service URL for your CapRover service and then paste
+that into the value for the REACT_APP_API_HOST CI/CD variable
+in GitLab.
 
-* `docker-compose up`
+### Deploy it
 
-  
+Merge a change into main to kick off the initial deploy. Once the build pipeline
+finishes you should be able to see an "under construction" page on your GitLab
+pages site.
 
-Please feel free to start with http://localhost:3000. You will be met with the main page of MealMingle
-
-  
-
-**You may need to wait until the terminal says it has compiled successfully. This may take up to five minutes depending on your device's specifications**
-
-### Additional Information
-
-The server should be running once the http://localhost:3000/ page loads by itself. You will need to create an account in order to access other pages. Once you have created an account, please log in.
-
-You will have access to the React URLs in the front end (the links starting with http://localhost:3000/), as well as backend URLs’ functionality through FastAPI - Swagger Docs  (http://localhost:8000/docs#). A full list of URLs will be in the API Documentation section.
-
-  
-
-For testing purposes, please create an account or log in (if you already have an account), then proceed by creating a new event, invite another user to the event, view the events, get a specific event by its ID,  edit details of an event, and delete an event. 
-
-  
-
-## Diagram
-
-  
-
-## API Documentation
-
-  
-
-### FastAPI Body Examples
-Below are examples of the JSON Request Body content if you wish to test some requests in FastAPI:
-*Remember to press the Try It Out button on the FastAPI docs page before testing the functions listed below* 
-
-
-#### Jonathan Ceasar Medina
-
-| Method | URL Path or File | Description | 
-
-| ----------- | ----------- |  ----------- |
-
-| GET | http://localhost:8000/docs#/events/get_all_public_events_events_get | Backend endpoint that retrieves all events from the database | 
-
-Example output: 
-```
-[
-  {
-    "user_id": "jc medina",
-    "event_name": "Oh no! The party isn't going as expected!",
-    "address": "123 Some Street",
-    "zipcode": 90210,
-    "description": "What a mess! Cady got too drunk and threw up on Aaron Samuel's shoes, Regina is upset that she didn't get invited, and Damien and Janice are upset because 1) they weren't invited, and 2) Cady didn't even show up to Janis' art show dedicated to their friendship!!!",
-    "event_date": "2024-2-2",
-    "private_event": false,
-    "food_types": "American",
-    "alcohol_free": false,
-    "vegan": false,
-    "gluten_free": false,
-    "pescatarian": false,
-    "vegetarian": false,
-    "omnivore": false,
-    "keto_friendly": false,
-    "dairy_free": false,
-    "halal": false,
-    "kosher": false,
-    "event_id": 1
-  },
-  {
-    "user_id": "jc medina",
-    "event_name": "bruh",
-    "address": "string",
-    "zipcode": 0,
-    "description": "string",
-    "event_date": "string",
-    "private_event": false,
-    "food_types": "Cuban",
-    "alcohol_free": false,
-    "vegan": false,
-    "gluten_free": false,
-    "pescatarian": false,
-    "vegetarian": false,
-    "omnivore": false,
-    "keto_friendly": false,
-    "dairy_free": false,
-    "halal": false,
-    "kosher": false,
-    "event_id": 2
-  }
-]
-
-```
-| Method | URL Path or File | Description | 
-
-| ----------- | ----------- |  ----------- |
-
-| GET | http://localhost:3000/events | Frontend endpoint and frontend component that retrieves all events from the database | 
-
-Example output: 
-
-
-| Method | URL Path or File | Description | 
-
-| ----------- | ----------- |  ----------- |
-
-| TEST | test_get_all_events.py | Unit test for retrieving an example event and the expected output | 
-
-Result output: Unit test passes 
-
-
-
-| Method | URL Path or File | Description | 
-
-| ----------- | ----------- |  ----------- |
-
-| GET  | http://localhost:8000/docs#/events/get_one_event_events__event_id__get | Backend endpoint for getting one event | 
-
-Example output: 
-
-```
-{
-  "user_id": "jc medina",
-  "event_name": "bruh",
-  "address": "string",
-  "zipcode": 0,
-  "description": "string",
-  "event_date": "string",
-  "private_event": false,
-  "food_types": "Cuban",
-  "alcohol_free": false,
-  "vegan": false,
-  "gluten_free": false,
-  "pescatarian": false,
-  "vegetarian": false,
-  "omnivore": false,
-  "keto_friendly": false,
-  "dairy_free": false,
-  "halal": false,
-  "kosher": false,
-  "event_id": 2
-}
-
-```
-
-| Method | URL Path or File | Description | 
-
-| ----------- | ----------- |  ----------- |
-
-| POST  | http://localhost:8000/docs#/invite/invite_invite_post | Backend endpoint for inviting a user to an event | 
-
-Example output: 
-
-```
-{
-  "guest": 1,
-  "event": 2,
-  "guest_id": 4
-}
-
-```
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-#### Naomi
-
-|PUT | [http://localhost:8000/docs#/events/edit_event_events__event_id__put](http://localhost:8000/docs#/events/edit_event_events__event_id__put) | Backend endpoint for updating an existing event
-
-Expected output given event_id:
-
-```
-{
-"user_id": 1,
-"event_name": Oh no! The party isn't going as expected!,
-"address": 123 Some Street,
-"zipcode": 90210,
-"description": What a mess! Cady got too drunk and threw up on Aaron Samuel's shoes, Regina is upset that she didn't get invited, and Damien and Janice are upset because 1) they weren't invited, and 2) Cady didn't even show up to Janis' art show dedicated to their friendship!!!,
-"event_date": 2024-2-2,
-"private_event": true,
-"food_types": 2,
-"alcohol_free": true,
-"vegan": false,
-"gluten_free": false,
-"pescatarian": false,
-"vegetarian": false,
-"omnivore": true,
-"keto_friendly": false,
-"dairy_free": false,
-"halal": false,
-"kosher": true
-}
-```
-
-|GET | [http://localhost:8000/docs#/accounts/get_all_users_users_get](http://localhost:8000/docs#/events/edit_event_events__event_id__put) | Backend endpoint for retrieving all user accounts
-
-Expected Outcome:
-
-```
-[
-  {
-    "user_id": 1,
-    "full_name": "Naomi Campos",
-    "username": "n23",
-    "email": "naomi@test.com"
-  },
-  {
-    "user_id": 2,
-    "full_name": "Bob Marley",
-    "username": "bmar",
-    "email": "bob@test.com"
-  }
-]
-```
-
-
-|GET | [http://localhost:3000/signup](http://localhost:3000/signup) | Frontend url for form to create a new user account
-
-Screenshot: 
-![Landing Page](ghi/src/Images/meal-mingle-signup.png "Screenshot of signup form for Meal Mingle")
-
-
-
-|GET | [http://localhost:3000/](http://localhost:3000/) | Frontend url for landing page
-
-Screenshot: 
-![Landing Page](ghi/src/Images/meal-mingle-landing.png "Screenshot of landing page for Meal Mingle")
-
-
-
-|GET | [http://localhost:3000/main](http://localhost:3000/main) | Frontend url for home page of logged in user
-
-Screenshot: 
-![Main Page](ghi/src/Images/meal-mingle-main.png "Screenshot of main page for Meal Mingle")
-
-
-
-| TEST | test_delete_event.py | Unit test to ensure backend delete endpoint is successful
-Result output: Unit test passes 
-
-
-
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-#### Mitchell Mora
-
-| Method | URL Path or File | Description |
-
-| POST | 
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-#### Mitchell Wong 
-
-| Method | URL Path or File | Description |
-
-| --- | --- | — |
-
-|POST | http://localhost:8000/docs#/events/create_an_event_event_post | Backend endpoint for creating a new event 
-
-Example output:
-```
-{
-  "user_id": 1,
-  "event_name": Cady Heron's Party,
-  "address": 123 Some Street,
-  "zipcode": 90210,
-  "description": Cady's throwing a big party since her parents are out of town for the weekend watching Ladysmith Black Mambazo,
-  "event_date": 2024-2-2,
-  "private_event": true,
-  "food_types": 2,
-  "alcohol_free": false,
-  "vegan": false,
-  "gluten_free": false,
-  "pescatarian": false,
-  "vegetarian": false,
-  "omnivore": true,
-  "keto_friendly": false,
-  "dairy_free": false,
-  "halal": false,
-  "kosher": true
-}
-```
-
-| Method | URL Path or File | Description | 
-
-| ----------- | ----------- |  ----------- |
-
-| DELETE | http://localhost:8000/docs#/events/delete_event_events__event_id__delete | Backend endpoint for deleting one event | 
-
-Example output: 
-
-```
-{
-  "event_id": 1,
-}
-```
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-| GET | http://localhost:8000/docs#/food_types/get_all_food_types_foods_get | Backend endpoint for getting all food types | 
-
-Example output: 
-
-```
-[
-  {
-    "name": "Algerian",
-    "food_type_id": 1
-  },
-  {
-    "name": "American",
-    "food_type_id": 2
-  },
-  {
-    "name": "Angolan",
-    "food_type_id": 3
-  },
-  {
-    "name": "Arab",
-    "food_type_id": 4
-  },
-  {
-    "name": "Argentine / Argentinian",
-    "food_type_id": 5
-  },
-  {
-    "name": "Australian",
-    "food_type_id": 6
-  },
-  {
-    "name": "Austrian",
-    "food_type_id": 7
-  },
-  {
-    "name": "Belgian",
-    "food_type_id": 8
-  },
-  {
-    "name": "Bosnian",
-    "food_type_id": 9
-  },
-  {
-    "name": "Brazilian",
-    "food_type_id": 10
-  }
-
-```
-
-#### Group Components 
-
-Login frontend and backend endpoint
-Signup frontend and backend endpoint
-Backend authentication
-Frontend authentication
-Backend deployment
-Frontend deployment 
