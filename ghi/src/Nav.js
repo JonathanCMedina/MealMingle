@@ -6,8 +6,8 @@ const Nav = (props) => {
 
     if (token) {
         return (
-            <div>
-                <h1>Meal Mingle</h1>
+            <div className="border-b-2 border-black mb-5">
+                <NavLink className="nav-link text-4xl" to="/">Meal Mingle</NavLink>
                 <div>
                     <ul>
                         <li>
@@ -28,8 +28,8 @@ const Nav = (props) => {
         )
     } else {
         return (
-            <div>
-                <h1>Meal Mingle</h1>
+            <div className="border-b-2 border-black mb-5">
+                <NavLink className="nav-link text-4xl" to="/">Meal Mingle</NavLink>
                 <div>
                     <ul>
                         <li>
