@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 function EditEventPage() {
   const navigate = useNavigate();
-  const {token} = useAuthContext();
-  const {event_id} = useParams();
+  const { token } = useAuthContext();
+  const { event_id } = useParams();
   const [formData, setFormData] = useState({
-    user_id: '',
-    event_name: '',
-    address: '',
+    user_id: "",
+    event_name: "",
+    address: "",
     zipcode: 0,
-    description: '',
-    event_date: '',
+    description: "",
+    event_date: "",
     private_event: false,
-    food_types: '',
+    food_types: "",
     alcohol_free: false,
     vegan: false,
     gluten_free: false,
@@ -27,63 +27,69 @@ function EditEventPage() {
     kosher: false,
   });
 
-useEffect(() => {
-  if (!token) return ;
-  async function fetchEventData() {
-    const fetchToken = {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+  useEffect(() => {
+    if (!token) return;
+    async function fetchEventData() {
+      const fetchToken = {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_HOST}/events/${event_id}`,
+          fetchToken
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setFormData(data);
+        } else {
+          console.error("Failed to fetch event data");
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
       }
     }
-    try {
-      const response = await fetch(`http://localhost:8000/events/${event_id}`, fetchToken);
-      if (response.ok) {
-        const data = await response.json();
-        setFormData(data);
-      } else {
-        console.error('Failed to fetch event data');
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  }
-  fetchEventData();
-}, [token, event_id]);
+    fetchEventData();
+  }, [token, event_id]);
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
 
     // Convert specific values to integers
-    const parsedValue = type === 'number' ? parseInt(value) : value;
+    const parsedValue = type === "number" ? parseInt(value) : value;
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : parsedValue,
+      [name]: type === "checkbox" ? checked : parsedValue,
     }));
   };
 
   const handleEditEvent = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/events/${event_id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_HOST}/events/${event_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
-        console.log('Event edited successfully');
+        console.log("Event edited successfully");
         navigate(`/events/${event_id}`);
       } else {
-        console.error('Failed to edit event');
+        console.error("Failed to edit event");
       }
     } catch (error) {
-      console.error('Fetch error:', error);
+      console.error("Fetch error:", error);
     }
   };
 
@@ -146,7 +152,7 @@ useEffect(() => {
           onChange={handleInputChange}
         />
       </div>
-       <div className="mb-4">
+      <div className="mb-4">
         <label className="block mb-2">Food Type:</label>
         <input
           type="number"
