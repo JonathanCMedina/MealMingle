@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
-from queries.events import EventRepository, EventOut
+from queries.events import EventRepository
 from authenticator import authenticator
 
 client = TestClient(app)
