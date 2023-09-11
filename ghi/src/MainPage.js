@@ -16,6 +16,12 @@ const MainPage = (props) => {
             </div>
 
         )
+    } else {
+        return (
+            <div>
+                <h2>Please log in to access this page.</h2>
+            </div>
+        )
     }
 }
 
