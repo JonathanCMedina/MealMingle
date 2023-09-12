@@ -31,12 +31,8 @@ function EventsList(props) {
   }, [token]);
 
   return (
-    <div>
-      <head>
-        <title> MealMingle | All Events </title>
-      </head>
-
-      <main className=" bg-gray-200 dark:bg-gray-900">
+    <div className=" min-h-screen bg-gray-200 dark:bg-gray-900">
+      <main>
         <h1 className="text-3xl pt-6 font-bold text-center"> All Events </h1>
         <div className="grid gap-10 lg:grid-cols-3 px-10">
           {eventsList?.map((prop) => {
