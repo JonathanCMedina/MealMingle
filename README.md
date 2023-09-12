@@ -270,38 +270,51 @@ Result output: Unit test passes
 
 | Method | URL Path or File | Description |
 
-| POST | http://localhost:8000/docs#/food_types/create_food_type_food_types\_\_post | Backend endpoint for creating a new food type.
+| POST | http://localhost:8000/docs#/food_types/create_food_type_food_types__post | Backend endpoint for creating a new food type.
 
 Example Output:
 {
-"name": "string"
+  "name": "string"
 }
 
 | PUT | localhost:3000/events/{user_id}/edit | Front End |
 Allows users to edit their event and redirects to the event detail of the edited event
+![alt text](/ghi/src/images/editevent.png)
+![alt text](/ghi/src/images/editeventconsole.png)
+![alt text](/ghi/src/images/editeventresult.png)
 
 | POST | localhost:3000/accounts | Back End | Allows users to signup / create account. |
 Expected output:
 {
-"access_token": "string",
-"token_type": "Bearer",
-"account": {
-"user_id": 0,
-"full_name": "string",
-"username": "string",
-"email": "string"
-}
+  "access_token": "string",
+  "token_type": "Bearer",
+  "account": {
+    "user_id": 0,
+    "full_name": "string",
+    "username": "string",
+    "email": "string"
+  }
 }
 
-| GET | Event List | http://localhost:3000/events/{event_id} |Front end endpoint | Allows users to see the details of a single created event |
+
+| GET | Event List | http://localhost:3000/events/{event_id}  |Front end endpoint | Allows users to see the details of a single created event |
+![alt text](/ghi/src/images/listevent.png)
+
 
 |
 
+
 | PUT | Login Page | http://localhost:3000/login | Allows registered users to login. | If successful a successful response for the token is returned in the network tab of the console and the login page fields are cleared.
+![alt text](/ghi/src/images/login.png)
+![alt text](/ghi/src/images/logintokennetwork.png)
+
+
+
+
 
 | UNIT TEST | Edit Event | Unit test to determine if the backend endpoint is successful. Result: Test Passes. |
 
----
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### Mitchell Wong
 
