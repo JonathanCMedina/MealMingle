@@ -8,8 +8,8 @@ const Nav = (props) => {
         return (
             <div className="border-b-2 border-black mb-5">
                 <NavLink className="nav-link text-4xl" to="/">Meal Mingle</NavLink>
-                <div>
-                    <ul>
+                <div className="nav-list flex w-full">
+                    <ul className="flex-row">
                         <li>
                             <NavLink className="nav-link" to="/main">Home</NavLink>
                         </li>
@@ -30,7 +30,7 @@ const Nav = (props) => {
         return (
             <div className="border-b-2 border-black mb-5">
                 <NavLink className="nav-link text-4xl" to="/">Meal Mingle</NavLink>
-                <div>
+                <div className="nav-list">
                     <ul>
                         <li>
                             <NavLink className="nav-link" to="/login">Login</NavLink>

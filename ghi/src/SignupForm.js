@@ -101,7 +101,7 @@ const SignupForm = () => {
             required
           />
         </div>
-        <button className="button" type="submit">
+        <button className="button border-2 m-2 border-black p-3" type="submit">
           Create
         </button>
       </form>
