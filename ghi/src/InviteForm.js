@@ -5,6 +5,7 @@ function InviteForm() {
   const [event, setEvent] = useState("");
   const [events, setEvents] = useState([]);
   const [guests, setGuests] = useState([]);
+  const [invited, setInvited] = useState(false);
   const { token } = useAuthContext();
   const [guest, setGuest] = useState("");
 
@@ -74,6 +75,7 @@ function InviteForm() {
     if (response.ok) {
       setGuests([]);
       setEvents([]);
+      setInvited(true);
     } else {
       console.log(response);
     }
@@ -88,63 +90,66 @@ function InviteForm() {
   };
 
   return (
-    <form id="invite-form">
-      <div className="px-10 py-10 grid grid-cols-6 gap-4">
-        <div className="col-start-2 col-span-3">
-          <label
-            htmlFor="email"
-            className="grid mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    <div className="flex flex col justify-center h-screen items-center bg-gradient-to-b from-black to-green-800">
+      <form id="invite-form">
+        <div className="px-10 py-10 grid grid-cols-6 gap-4 ">
+          <div className="col-start-2 col-span-3 shadow-lg hover:shadow-green-500 shadow-yellow-500">
+            <label
+              htmlFor="email"
+              className="grid mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            ></label>
+            <select
+              name="email"
+              id="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 grid w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={handleGuestChange}
+            >
+              <option value={guest}>Email</option>
+              {guests.map((email) => {
+                return (
+                  <option key={email.user_id} value={email.user_id}>
+                    {email.email}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="col-start-2 col-span-3 shadow-lg hover:shadow-green-500 shadow-yellow-500">
+            <label
+              htmlFor="events"
+              className="grid mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            ></label>
+            <select
+              name="events"
+              id="events"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 grid w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={handleEventChange}
+            >
+              <option value={event}>Event List</option>
+              {events.map((events) => {
+                return (
+                  <option key={events.event_id} value={events.event_id}>
+                    {events.event_name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <button
+            onClick={handleSubmit}
+            type="button"
+            className="bg-yellow-500 hover:bg-green-500 text-black rounded-full px-3 py-1 text-md"
           >
-            Email
-          </label>
-          <select
-            name="email"
-            id="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 grid w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            onChange={handleGuestChange}
-          >
-            <option value={guest}>Email</option>
-            {guests.map((email) => {
-              return (
-                <option key={email.user_id} value={email.user_id}>
-                  {email.email}
-                </option>
-              );
-            })}
-          </select>
+            Invite
+          </button>
         </div>
-        <div className="col-start-2 col-span-3">
-          <label
-            htmlFor="events"
-            className="grid mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Event
-          </label>
-          <select
-            name="events"
-            id="events"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 grid w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            onChange={handleEventChange}
-          >
-            <option value={event}>Event</option>
-            {events.map((events) => {
-              return (
-                <option key={events.event_id} value={events.event_id}>
-                  {events.event_name}
-                </option>
-              );
-            })}
-          </select>
+      </form>
+      {invited && (
+        <div className="p-4 text-sm text-white">
+          <span class="font-medium">Success!</span> User has been invited.
         </div>
-        <button
-          onClick={handleSubmit}
-          type="button"
-          className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >
-          Invite
-        </button>
-      </div>
-    </form>
+      )}
+    </div>
   );
 }
 
